@@ -1,18 +1,12 @@
 #include <unistd.h>
 
-int	print_hex(long n, char *base)
+int	print_hex(int n, char *base)
 {
-	unsigned long	nb;
-	int				l;
+	unsigned int nb;
+	int	l;
 
 	l = 0;
-	if (n < 0)
-	{
-		l = (int)write(1, "-", 1);
-		nb = -n;
-	}
-	else
-		nb = n;
+	nb =(unsigned int) n;
 	if (nb >= 16)
 	{
 		l += print_hex(nb / 16, base);
@@ -22,21 +16,11 @@ int	print_hex(long n, char *base)
 		write(1, &base[nb], 1);
 	return (++l);
 }
-int	print_hex_low(long n)
+int	print_hex_low(int n)
 {
 	return (print_hex(n, "0123456789abcdef"));
 }
-int	print_hex_upp(long n)
+int	print_hex_upp(int n)
 {
 	return (print_hex(n, "0123456789ABCDEF"));
 }
-/*#include<stdio.h>
-int	main(void)
-{
-	int d=print_hex_low(15);
-	printf("\n%d\n",d);
-	d=print_hex_low(2024);
-	printf("\n%d\n",d);
-	d=print_hex_low(20252026);
-	printf("\n%d\n",d);
-}*/

@@ -1,6 +1,8 @@
 #include <stdarg.h>
 #include <stdio.h>
 #include <unistd.h>
+#include"ft_printf.h"
+
 
 int	its_formatting(char c)
 {
@@ -17,7 +19,7 @@ int	its_formatting(char c)
 	}
 	return (0);
 }
-static unsigned int	count_arg(char *s)
+/*static unsigned int	count_arg(char *s)
 {
 	int	i;
 	int	k;
@@ -31,15 +33,20 @@ static unsigned int	count_arg(char *s)
 		i++;
 	}
 	return (k);
-}
+}*/
 int	what_function(char c, va_list arg)
 {
 	int d;
 
-	if (c == 'd' || c == 'u' || c == 'i')
+	if (c == 'd'|| c == 'i')
 	{
 		d = va_arg(arg, int);
 		return print_int(d);
+	}
+	else if(c== 'u')
+	{
+		unsigned int d=va_arg(arg,unsigned int);
+		return  print_u_int(d);
 	}
 	else if (c == 'X')
 	{
@@ -65,7 +72,7 @@ int	what_function(char c, va_list arg)
 	else if (c == 'x')
 	{
 		d = va_arg(arg, int);
-		return print_hex_low(d);
+		return print_hex_low(d,1);
 	}
 	else if (c == 's')
 	{
@@ -73,18 +80,18 @@ int	what_function(char c, va_list arg)
 		s = va_arg(arg, char *);
 		return print_string(s);
 	}
+	else
+		return 0;
 }
-int	ft_printf(char *s, ...)
+int	ft_printf(const char *s, ...)
 {
 	va_list args;
 	int	j;
 	int l;
 
 	if (!s)
-	{
 		return -1;
-	}
-	va_start(args, count_arg(s));
+	va_start(args,s);
 	j = 0;
 	l=0;
 	while (s[j])
@@ -102,13 +109,3 @@ int	ft_printf(char *s, ...)
 	}
 	return l;
 }
-/*#include<stdio.h>
-int main(void)
-{
-	char c='c';
-	int dc=ft_printf("s:%s n:%d p:%p c:%c x:%x \n","hello",123,&c,'c',2025);
-	printf("%d\n",dc);
-	dc=printf("s:%s n:%d p:%p c:%c x:%x \n","hello",123,&c,'c',2025);
-        printf("%d\n",dc);
-}*/
-
