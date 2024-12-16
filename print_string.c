@@ -1,8 +1,20 @@
-#include <unistd.h>
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   print_string.c                                     :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: yben-cha <yben-cha@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/12/16 04:33:38 by yben-cha          #+#    #+#             */
+/*   Updated: 2024/12/16 04:33:39 by yben-cha         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
-unsigned long	ft_strlen(char *s)
+#include "ft_printf.h"
+
+int	ft_strlen(char *s)
 {
-	unsigned long	i;
+	int	i;
 
 	i = 0;
 	while (s[i])

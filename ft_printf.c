@@ -1,8 +1,16 @@
-#include <stdarg.h>
-#include <stdio.h>
-#include <unistd.h>
-#include"ft_printf.h"
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ft_printf.c                                        :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: yben-cha <yben-cha@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/12/16 04:33:03 by yben-cha          #+#    #+#             */
+/*   Updated: 2024/12/16 04:34:46 by yben-cha         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
+#include "ft_printf.h"
 
 int	its_formatting(char c)
 {
@@ -19,86 +27,45 @@ int	its_formatting(char c)
 	}
 	return (0);
 }
-/*static unsigned int	count_arg(char *s)
-{
-	int	i;
-	int	k;
 
-	i = 0;
-	k = 0;
-	while (s[i])
-	{
-		if (s[i] == '%' && its_formatting(s[i + 1]))
-			k++;
-		i++;
-	}
-	return (k);
-}*/
 int	what_function(char c, va_list arg)
 {
-	int d;
-
-	if (c == 'd'|| c == 'i')
-	{
-		d = va_arg(arg, int);
-		return print_int(d);
-	}
-	else if(c== 'u')
-	{
-		unsigned int d=va_arg(arg,unsigned int);
-		return  print_u_int(d);
-	}
+	if (c == 'd' || c == 'i')
+		return (print_int(va_arg(arg, int)));
+	else if (c == 'u')
+		return (print_u_int(va_arg(arg, unsigned int)));
 	else if (c == 'X')
-	{
-		d = va_arg(arg, int);
-		return print_hex_upp(d);
-	}
+		return (print_hex_upp(va_arg(arg, int)));
 	else if (c == 'c')
-	{
-		char o;
-		o = va_arg(arg, int);
-		return print_char(o);
-	}
+		return (print_char(va_arg(arg, int)));
 	else if (c == 'p')
-	{
-		void *p;
-		p = va_arg(arg, void *);
-		return print_pointer(p);
-	}
+		return (print_pointer(va_arg(arg, void *)));
 	else if (c == '%')
-	{
-		return print_percent();
-	}
+		return (print_percent());
 	else if (c == 'x')
-	{
-		d = va_arg(arg, int);
-		return print_hex_low(d,1);
-	}
+		return (print_hex_low(va_arg(arg, int)));
 	else if (c == 's')
-	{
-		char *s;
-		s = va_arg(arg, char *);
-		return print_string(s);
-	}
+		return (print_string(va_arg(arg, char *)));
 	else
-		return 0;
+		return (0);
 }
+
 int	ft_printf(const char *s, ...)
 {
-	va_list args;
-	int	j;
-	int l;
+	va_list	args;
+	int		j;
+	int		l;
 
 	if (!s)
-		return -1;
-	va_start(args,s);
+		return (-1);
+	va_start(args, s);
 	j = 0;
-	l=0;
+	l = 0;
 	while (s[j])
 	{
 		if (s[j] == '%' && its_formatting(s[j + 1]))
 		{
-			l+=what_function(s[j + 1], args);
+			l += what_function(s[j + 1], args);
 			j += 2;
 		}
 		else
@@ -107,5 +74,5 @@ int	ft_printf(const char *s, ...)
 			l++;
 		}
 	}
-	return l;
+	return (l);
 }
